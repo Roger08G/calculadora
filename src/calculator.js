@@ -1,4 +1,5 @@
 const MAX_INPUT_LENGTH = 14;
+const MAX_HISTORY_LENGTH = 8;
 const PRECISION = 12;
 
 const operations = {
@@ -6,6 +7,13 @@ const operations = {
   "-": (left, right) => left - right,
   "*": (left, right) => left * right,
   "/": (left, right) => left / right,
+};
+
+const operatorSymbols = {
+  "+": "+",
+  "-": "−",
+  "*": "×",
+  "/": "÷",
 };
 
 function normalizeResult(value) {
@@ -32,6 +40,7 @@ function formatResult(value) {
 
 export class Calculator {
   constructor() {
+    this.history = [];
     this.clear();
   }
 
@@ -44,6 +53,10 @@ export class Calculator {
     this.lastOperator = null;
     this.lastRightOperand = null;
     this.error = false;
+  }
+
+  clearHistory() {
+    this.history = [];
   }
 
   inputDigit(digit) {
@@ -123,13 +136,20 @@ export class Calculator {
 
     if (!this.operator) {
       if (this.justEvaluated && this.lastOperator) {
+        const leftOperand = Number(this.display);
         const repeated = this.#calculate(
-          Number(this.display),
+          leftOperand,
           this.lastRightOperand,
           this.lastOperator,
         );
 
         if (repeated !== null) {
+          this.#recordHistory(
+            leftOperand,
+            this.lastRightOperand,
+            this.lastOperator,
+            repeated,
+          );
           this.display = repeated;
         }
       }
@@ -150,6 +170,12 @@ export class Calculator {
       return;
     }
 
+    this.#recordHistory(
+      this.leftOperand,
+      rightOperand,
+      activeOperator,
+      result,
+    );
     this.display = result;
     this.lastOperator = activeOperator;
     this.lastRightOperand = rightOperand;
@@ -202,7 +228,19 @@ export class Calculator {
     return {
       display: this.display,
       error: this.error,
+      history: this.history.map((entry) => ({ ...entry })),
     };
+  }
+
+  #recordHistory(left, right, operator, result) {
+    const leftDisplay = formatResult(left) ?? String(left);
+    const rightDisplay = formatResult(right) ?? String(right);
+
+    this.history.unshift({
+      expression: `${leftDisplay} ${operatorSymbols[operator]} ${rightDisplay}`,
+      result,
+    });
+    this.history = this.history.slice(0, MAX_HISTORY_LENGTH);
   }
 
   #calculate(left, right, operator) {

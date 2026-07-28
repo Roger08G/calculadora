@@ -28,7 +28,11 @@
           0
         </div>
 
-        <div class="calculator__keys" aria-label="Teclado de la calculadora">
+        <div
+          class="calculator__keys"
+          aria-label="Teclado de la calculadora"
+          aria-describedby="keyboard-help"
+        >
           <button class="key key--utility" type="button" data-action="clear">
             AC
           </button>
@@ -119,6 +123,29 @@
             =
           </button>
         </div>
+
+        <p id="keyboard-help" class="keyboard-help">
+          Teclado: números, operadores, Intro, Escape y Retroceso.
+        </p>
+
+        <section class="history" aria-labelledby="history-title">
+          <div class="history__heading">
+            <h2 id="history-title">Historial</h2>
+            <button
+              class="history__clear"
+              type="button"
+              data-action="clear-history"
+            >
+              Limpiar
+            </button>
+          </div>
+          <ol
+            id="history-list"
+            class="history__list"
+            role="list"
+            aria-live="polite"
+          ></ol>
+        </section>
       </section>
     </main>
 

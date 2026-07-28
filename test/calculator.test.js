@@ -74,10 +74,15 @@ test("muestra un estado recuperable al dividir entre cero", () => {
   assert.deepEqual(calculator.getState(), {
     display: "No definido",
     error: true,
+    history: [],
   });
 
   calculator.inputDigit("4");
-  assert.deepEqual(calculator.getState(), { display: "4", error: false });
+  assert.deepEqual(calculator.getState(), {
+    display: "4",
+    error: false,
+    history: [],
+  });
 });
 
 test("admite cambio de signo, porcentaje y retroceso", () => {
@@ -102,4 +107,55 @@ test("rechaza entradas que no sean dígitos", () => {
 
   assert.throws(() => calculator.inputDigit("12"), TypeError);
   assert.throws(() => calculator.inputDigit("a"), TypeError);
+});
+
+test("registra las operaciones resueltas en el historial", () => {
+  const calculator = new Calculator();
+  enter(calculator, "12");
+  calculator.chooseOperator("+");
+  enter(calculator, "7");
+  calculator.evaluate();
+
+  assert.deepEqual(calculator.getState().history, [
+    { expression: "12 + 7", result: "19" },
+  ]);
+});
+
+test("registra las repeticiones de igual como operaciones nuevas", () => {
+  const calculator = new Calculator();
+  enter(calculator, "5");
+  calculator.chooseOperator("+");
+  enter(calculator, "2");
+  calculator.evaluate();
+  calculator.evaluate();
+
+  assert.deepEqual(calculator.getState().history, [
+    { expression: "7 + 2", result: "9" },
+    { expression: "5 + 2", result: "7" },
+  ]);
+});
+
+test("conserva solo las ocho operaciones más recientes", () => {
+  const calculator = new Calculator();
+
+  for (let index = 0; index < 10; index += 1) {
+    calculator.inputDigit("1");
+    calculator.chooseOperator("+");
+    calculator.inputDigit("1");
+    calculator.evaluate();
+  }
+
+  assert.equal(calculator.getState().history.length, 8);
+});
+
+test("limpia el historial sin modificar el resultado", () => {
+  const calculator = new Calculator();
+  enter(calculator, "9");
+  calculator.chooseOperator("*");
+  enter(calculator, "3");
+  calculator.evaluate();
+  calculator.clearHistory();
+
+  assert.equal(calculator.getState().display, "27");
+  assert.deepEqual(calculator.getState().history, []);
 });
