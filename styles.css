@@ -33,7 +33,7 @@ button {
 }
 
 .calculator {
-  width: min(100%, 390px);
+  width: min(100%, 420px);
   padding: 24px;
   border: 1px solid rgb(255 255 255 / 9%);
   border-radius: 28px;
@@ -145,6 +145,90 @@ button {
 
 .key--equals:hover {
   background: #f18b56;
+}
+
+.keyboard-help {
+  margin: 12px 4px 0;
+  color: #9aa8b7;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.history {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgb(255 255 255 / 8%);
+}
+
+.history__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.history__heading h2 {
+  margin: 0;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+}
+
+.history__clear {
+  padding: 6px 10px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 9px;
+  background: transparent;
+  color: #aab7c4;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.history__clear:hover:not(:disabled) {
+  border-color: rgb(255 255 255 / 22%);
+  color: #f4f7fb;
+}
+
+.history__clear:focus-visible {
+  outline: 3px solid #8ae1e7;
+  outline-offset: 2px;
+}
+
+.history__clear:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.history__list {
+  display: grid;
+  max-height: 138px;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.history__item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 11px;
+  border-radius: 10px;
+  background: rgb(4 8 14 / 50%);
+  color: #aeb9c5;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.history__result {
+  color: #f4f7fb;
+  font-weight: 700;
+}
+
+.history__empty {
+  color: #7f8c9a;
+  font-size: 0.82rem;
 }
 
 @media (max-width: 420px) {
