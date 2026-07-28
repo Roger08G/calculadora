@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Calculadora web accesible para operaciones aritméticas cotidianas."
+    />
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="calculator" aria-labelledby="calculator-title">
+        <div class="calculator__heading">
+          <p class="eyebrow">Herramienta cotidiana</p>
+          <h1 id="calculator-title">Calculadora</h1>
+        </div>
+
+        <div
+          id="display"
+          class="calculator__display"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          0
+        </div>
+
+        <div class="calculator__keys" aria-label="Teclado de la calculadora">
+          <button class="key key--utility" type="button" data-action="clear">
+            AC
+          </button>
+          <button
+            class="key key--utility"
+            type="button"
+            data-action="toggle-sign"
+            aria-label="Cambiar signo"
+          >
+            +/−
+          </button>
+          <button
+            class="key key--utility"
+            type="button"
+            data-action="percent"
+            aria-label="Convertir a porcentaje"
+          >
+            %
+          </button>
+          <button
+            class="key key--operator"
+            type="button"
+            data-operator="/"
+            aria-label="Dividir"
+          >
+            ÷
+          </button>
+
+          <button class="key" type="button" data-digit="7">7</button>
+          <button class="key" type="button" data-digit="8">8</button>
+          <button class="key" type="button" data-digit="9">9</button>
+          <button
+            class="key key--operator"
+            type="button"
+            data-operator="*"
+            aria-label="Multiplicar"
+          >
+            ×
+          </button>
+
+          <button class="key" type="button" data-digit="4">4</button>
+          <button class="key" type="button" data-digit="5">5</button>
+          <button class="key" type="button" data-digit="6">6</button>
+          <button
+            class="key key--operator"
+            type="button"
+            data-operator="-"
+            aria-label="Restar"
+          >
+            −
+          </button>
+
+          <button class="key" type="button" data-digit="1">1</button>
+          <button class="key" type="button" data-digit="2">2</button>
+          <button class="key" type="button" data-digit="3">3</button>
+          <button
+            class="key key--operator"
+            type="button"
+            data-operator="+"
+            aria-label="Sumar"
+          >
+            +
+          </button>
+
+          <button
+            class="key key--utility"
+            type="button"
+            data-action="backspace"
+            aria-label="Borrar último dígito"
+          >
+            ⌫
+          </button>
+          <button class="key" type="button" data-digit="0">0</button>
+          <button
+            class="key"
+            type="button"
+            data-action="decimal"
+            aria-label="Separador decimal"
+          >
+            ,
+          </button>
+          <button
+            class="key key--equals"
+            type="button"
+            data-action="equals"
+            aria-label="Calcular resultado"
+          >
+            =
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>
